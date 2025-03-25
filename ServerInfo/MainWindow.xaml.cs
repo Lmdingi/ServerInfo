@@ -4,6 +4,7 @@ using System.Windows;
 using VideoOS.Platform;
 using VideoOS.Platform.UI.Controls;
 using VideoOS.Platform.UI;
+using System.Collections.Generic;
 
 namespace ServerInfo
 {
@@ -12,21 +13,29 @@ namespace ServerInfo
     /// </summary>
     public partial class MainWindow : VideoOSWindow
     {
-        //private ConfigManager _configManager = new ConfigManager();
+        //Props
+
+        //Fields        
+        private List<Item> _folders = new List<Item>();
         MyConfigurationService _myConfigurationService;
-        //ItemPickerWpfUserControl _itemPicker;
+
+        //Constructors 
         public MainWindow()
         {
             InitializeComponent();
             _myConfigurationService = new MyConfigurationService();
         }
 
+        //Methods
         private void Load_Click(object sender, RoutedEventArgs e)
         {
-            _itemPicker =  _myConfigurationService.FillContent(_itemPicker);
-            //_myConfigurationService.AppAndSytemCommunicationManager();
+            _itemPicker.Items = new List<Item>();
+            _itemPicker.Items = _myConfigurationService.GetDefinedItems(_folders);
+        }
 
-            EnvironmentManager.Instance.EnvironmentOptions[EnvironmentOptions.ConfigurationChangeCheckInterval] = "10";
+        private void ItemPickerOnSelectedItemChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,10 +43,6 @@ namespace ServerInfo
             VideoOS.Platform.SDK.Environment.RemoveAllServers();
             Close();
         }
-
-        private void ItemPickerOnSelectedItemChanged(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
