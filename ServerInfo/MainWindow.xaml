@@ -13,25 +13,43 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
+        
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <platformUiControls:VideoOSTextBlockLabel Grid.Row="0" Text="List of all defined items:" Margin="10,0,0,0" />
+                <platformUiControls:VideoOSTextBlockLabel Text="List of all defined items:" Margin="10,0,0,0" />
+                
                 <VideoOSPlatformUI:ItemPickerWpfUserControl 
                     x:Name="_itemPicker" 
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     Grid.Row="1"
                     IsMultiSelection="False"
-                    SelectedItemChanged="ItemPickerOnSelectedItemChanged" />
+                    SelectedItemChanged="ItemPicker_SelectedItemChanged" />
 
                 <platformUiControls:VideoOSButtonPrimaryMedium Content="Load" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Load_Click" Margin="0,10,0,0" />
             </StackPanel>
-        </ScrollViewer>        
-        
+        </ScrollViewer>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="1">
+            <StackPanel>
+                <platformUiControls:VideoOSTextBlockLabel Grid.Row="0" Text="Details for selected item:" />
+
+                <platformUiControls:VideoOSTreeView
+                    x:Name="selectedItemDetails"
+                    Background="White"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Margin="0 15 0 0"
+                    Grid.Row="1"
+                    ItemIsExpandedPropertyName="IsExpanded" />
+            </StackPanel>
+        </ScrollViewer>
+
         <platformUiControls:VideoOSButtonPrimaryMedium Content="Close" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Click="Button_Click" Grid.Row="1" Grid.Column="1" />
     </Grid>
 </platformUiControls:VideoOSWindow>
